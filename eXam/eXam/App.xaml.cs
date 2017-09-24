@@ -1,4 +1,8 @@
-﻿using System;
+﻿using eXam.Interfaces;
+using eXam.Services;
+using Newtonsoft.Json;
+using Plugin.Connectivity;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,16 +27,35 @@ namespace eXam
             MainPage = navigationPage;
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
             // Handle when your app starts
             var assembly = typeof(App).GetTypeInfo().Assembly;
-            var resourceStream = assembly.GetManifestResourceStream("eXam.Data.questions.xml");
+            var resourceStream = assembly.GetManifestResourceStream("eXam.Data.questions.json");
             var reader = new StreamReader(resourceStream);
-            var xml = reader.ReadToEnd();
-            var embeddedQuestions = QuizQuestionXmlSerializer.Deserialize(xml);
+            var json = reader.ReadToEnd();
+            var embeddedQuestions = JsonConvert.DeserializeObject<List<QuizQuestion>>(json);
             CurrentGame = new Game(embeddedQuestions);
-           
+
+            IFileHelper fileHelper = DependencyService.Get<IFileHelper>();
+            string cachedQuestions = string.Empty;
+            if (CrossConnectivity.Current.IsConnected)
+            {
+                // We're online 
+                IQuestionService questionService = new AzureQuestionService();
+                var questionsList = await questionService.GetQuestionsAsync();
+                cachedQuestions = JsonConvert.SerializeObject(questionsList);
+            }
+            else
+            {
+                // We're offline. Load the questions from the local cache 
+                cachedQuestions = await fileHelper.LoadLocalFileAsync("cachedquestions.json");
+            }
+
+            if (string.IsNullOrWhiteSpace(cachedQuestions))
+            {
+                await fileHelper.SaveLocalFileAsync("cachedquestions.json", json);
+            }
         }
 
         protected override void OnSleep()

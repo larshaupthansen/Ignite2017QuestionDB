@@ -1,6 +1,8 @@
 ﻿namespace eXam
 {
-	public class QuizQuestion
+
+    [Newtonsoft.Json.JsonObject(Title = "questions")]
+    public class QuizQuestion
 	{
 		public string Question    { get; set; }
 		public bool   Answer      { get; set; }

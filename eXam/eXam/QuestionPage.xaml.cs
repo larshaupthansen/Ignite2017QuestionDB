@@ -15,6 +15,9 @@ namespace eXam
         public QuestionPage()
         {
             InitializeComponent();
+            var question = App.CurrentGame.CurrentQuestion;
+
+            this.Question.Text = question.Question;
         }
     }
 }
