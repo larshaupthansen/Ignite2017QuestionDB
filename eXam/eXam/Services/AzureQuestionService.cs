@@ -15,8 +15,9 @@ namespace eXam.Services
 
         private void Initialize() {
             if (client == null) {
-                client = new MobileServiceClient("https://questionappservicelhhignite.azurewebsites.net/tables/questions");
+                client = new MobileServiceClient("https://questionappservicelhhignite.azurewebsites.net");
             }
+            questionsTable = client.GetTable<QuizQuestion>();
         }
 
         public Task<IEnumerable<QuizQuestion>> GetQuestionsAsync() {

@@ -41,7 +41,8 @@ namespace eXam
 
         private async void StartButton_Clicked(object sender, EventArgs e)
         {
-                await this.Navigation.PushAsync(new QuestionPage());         
+            var viewModel = new QuestionPageViewModel(App.CurrentGame);
+            await this.Navigation.PushAsync(new QuestionPage(viewModel));         
         }
 
         protected override void OnAppearing()

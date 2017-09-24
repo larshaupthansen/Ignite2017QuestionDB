@@ -49,6 +49,7 @@
     <Compile Include="QuestionPage.xaml.cs">
       <DependentUpon>QuestionPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="QuestionPageViewModel.cs" />
     <Compile Include="QuizQuestion.cs" />
     <Compile Include="QuizQuestionXmlSerializer.cs" />
     <Compile Include="Services\AzureQuestionService.cs" />

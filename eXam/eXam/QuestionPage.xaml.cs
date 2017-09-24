@@ -12,12 +12,11 @@ namespace eXam
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class QuestionPage : ContentPage
     {
-        public QuestionPage()
-        {
-            InitializeComponent();
-            var question = App.CurrentGame.CurrentQuestion;
+      
 
-            this.Question.Text = question.Question;
+        public QuestionPage(QuestionPageViewModel viewModel) {
+            this.BindingContext = viewModel;
+            InitializeComponent();
         }
     }
 }

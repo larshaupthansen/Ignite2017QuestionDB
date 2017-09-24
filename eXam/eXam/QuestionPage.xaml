@@ -16,11 +16,10 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-            <Label  x:Name="Question" Text="Question Text Default" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
-            
+            <Label Text="{Binding Question}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
             <Button Text="True" Grid.Row="1" Grid.Column="0" BackgroundColor="Green"></Button>
             <Button Text="False" Grid.Row="1" Grid.Column="1" BackgroundColor="Red"></Button>
-
+            <Label Text="{Binding Response}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
             <Label x:Name="Explanation" Text="Answer Text Default" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
 
             <Button Text="Next" BackgroundColor="Blue" Grid.Row="3" Grid.Column="1"></Button>
